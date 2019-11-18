@@ -8,12 +8,23 @@ $conn = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $p
 
 function handleRequest($conn) {
   if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    $cquery = filter_input(INPUT_GET, 'country');
-    $stmt = $conn->query("SELECT * FROM countries WHERE name LIKE '%$cquery%'");
+    $queries = array_filter($_GET);
+    if ( isset($queries['context']) ) {
+      // City search
+      $sqlquery = "SELECT cities.name, cities.district, cities.population FROM cities JOIN countries ON cities.country_code=countries.code WHERE countries.name LIKE '%{$queries['country']}%'";
+      $headings = ['City Name', 'District', 'Population'];
+      $dbfields = ['name', 'district', 'population'];
+    } else {
+      // Normal country search
+      $sqlquery = "SELECT * FROM countries WHERE name LIKE '%{$queries['country']}%'";
+      $headings = ['Country Name', 'Continent', 'Independence Year', 'Head of State'];
+      $dbfields = ['name', 'continent', 'independence_year', 'head_of_state'];
+    }
 
+    $stmt = $conn->query($sqlquery);
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    $response = table_response($results);
-    file_put_contents("log", $response);
+    $response = table_response($results, $headings, $dbfields);
+    file_put_contents("log", $response);  //debugging
     echo $response;
   }
 }
@@ -34,10 +45,8 @@ EOF;
   
 }
 
-function table_response($results) {
+function table_response($results, $headings, $dbfields) {
   /* Country Name, Continent, Independence Year, Head of State */
-  $headings = ['Country Name', 'Continent', 'Independence Year', 'Head of State'];
-  $dbfields = ['name', 'continent', 'independence_year', 'head_of_state'];
   $table_headings = table_headings($headings);
   
   $table_data = "";

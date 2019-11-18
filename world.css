@@ -20,7 +20,7 @@ body {
 }
 
 header {
-    padding: 2em;
+    padding: 2.5%;
     background-color: rgba(0, 139, 139);
     text-align: center;
     width: 100%;    
@@ -35,10 +35,10 @@ label {
     margin-top: 3em;
     margin-bottom: 3em;
     display: block; 
-    padding: 0 20em 0 20em;
+    padding: 0 25% 0 25%;
 }
 
-#controls > #country, #lookup {
+#controls > #country, #lookup > button {
     box-shadow: 0.1em 0.1em 0.2em gray;
 }
 
@@ -50,8 +50,12 @@ label {
 }
 
 #lookup {
-    width: 50%;
-    margin: 0 25% 0 25%;
+    margin-left: 15%;
+    /* display: inline-block; */
+}
+
+#lookup > button {
+    width: 40%;
 }
 
 #result {
