@@ -1,1 +1,61 @@
 /* Add your own styles */
+/* #result > table{
+    padding: 1em;
+} */
+
+table, th, td {
+    border: 0.3em solid slategrey;
+    border-collapse: collapse;
+    border-color: slategrey;
+    box-shadow: 0.1em 0.1em 0.2em gray;
+}
+
+th, td {
+    padding: 0.5em;
+}
+
+body {
+    margin: 0 0 5em 0;
+    background-color: gainsboro;
+}
+
+header {
+    padding: 2em;
+    background-color: rgba(0, 139, 139);
+    text-align: center;
+    width: 100%;    
+}
+
+label {
+    width: 100%;
+    display: inline-block;
+}
+
+#controls {
+    margin-top: 3em;
+    margin-bottom: 3em;
+    display: block; 
+    padding: 0 20em 0 20em;
+}
+
+#controls > #country, #lookup {
+    box-shadow: 0.1em 0.1em 0.2em gray;
+}
+
+#country {
+    width: 100%;
+    margin-bottom: 1em; 
+    /* border: 0.1em solid black; */
+    /* box-shadow: 0.1em 0.1em 0.2em gray;   */
+}
+
+#lookup {
+    width: 50%;
+    margin: 0 25% 0 25%;
+}
+
+#result {
+    display: flex;
+    justify-content: center;
+    /* justify-items: center; */
+}
